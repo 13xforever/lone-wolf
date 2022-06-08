@@ -1,0 +1,21 @@
+body {
+    font-variant-numeric: oldstyle-nums;
+}
+
+combat_skill {
+    font-family: consolas, monospace;
+    font-variant-numeric: normal slashed-zero;
+    color: coral;
+}
+
+endurance {
+    font-family: consolas, monospace;
+}
+
+.dark combat_skill {
+    color: coral;
+}
+
+.dark endurance {
+    color: mediumseagreen
+}
