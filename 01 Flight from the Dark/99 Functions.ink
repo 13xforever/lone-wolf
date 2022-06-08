@@ -75,6 +75,9 @@
 === function PD(val)
 {PHTML("discipline", D2N(val))}
 
+=== function PI(val)
+{PHTML("item", I2N(val))}
+
 
 === function D2N(val)
 { val:
@@ -105,7 +108,13 @@
 - else  : Unknown weapon {val}
 }
 
-=== function RollWeapon
+=== function I2N(val)
+{ val:
+
+- else : FIXME {val}
+}
+
+=== function RollWeapon()
 { RANDOM(0, 9):
 - 0: ~ return dagger
 - 1: ~ return spear
@@ -131,3 +140,33 @@
 - bsword: # IMAGE: img/bsword.png
 - else  : Unknown weapon
 }
+
+== function GetProfDesc(val)
+{PROFFICIENCY ? val:, which you're {~profficient|intimately familiar|well accustomed|very handy} with}
+
+== function GetTotalCombatSkill(mblast_resistant, active_weapon)
+~ temp result = COMBAT_SKILL
+
+{ GetWeaponCount():
+- 0: ~ result -= 4
+- else:
+    { PROFFICIENCY ? active_weapon:
+        ~ result += LIST_COUNT(PROFFICIENCY ) * 2
+    }
+}
+{ (DISCIPLINES ? mblst) and (not mblast_resistant):
+    ~ result += 2
+}
+~ return result
+
+== function GetTotalBackpack()
+~ return LIST_COUNT(BACKPACK_ITEMS) + MEALS
+
+== function GetWeaponCount()
+~ return LIST_COUNT(HANDS ^ WEAPONS)
+
+== function RightNowSyn(val)
+{~Right now|At {~the|this} {~moment|time}|At present|Presently} you {~have|carry} {val==0:none|{NumToWords(val)}}
+
+== function RollSyn()
+{~{~Roll|Drop|Flick|Jab|Tap|Twirl} the pencil|{~Consult|Peruse|Point at|Tap} the Random Number Table} {~|again|once {~again|more}|one more time}
