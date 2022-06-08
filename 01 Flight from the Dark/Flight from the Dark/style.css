@@ -273,7 +273,8 @@ body {
 
 
 combat_skill, endurance {
-    font-family: Consolas, "JetBrains Mono", monospace;
+    /* font-family: Consolas, "JetBrains Mono", monospace; */
+    font-variant-caps: all-small-caps;
     font-variant-numeric: normal; /* slashed-zero */
     font-weight: bold;
 }

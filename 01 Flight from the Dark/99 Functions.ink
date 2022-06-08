@@ -78,8 +78,56 @@
 
 === function D2N(val)
 { val:
-- camo: Camouflage
-- hunt: Hunting
-- sixs: Sixth Sense
-- else: Unknown discipline {val}
+- camo : Camouflage
+- hunt : Hunting
+- sixs : Sixth Sense
+- track: Tracking
+- heal : Healing
+- weap : Weaponskill
+- mshld: Mindshield
+- mblst: Mindblast
+- akin : Animal Kinship
+- mom  : Mind Over Matter
+- else : Unknown discipline {val}
+}
+
+=== function W2N(val)
+{ val:
+- dagger: Dagger
+- spear : Spear
+- mace  : Mace
+- ssword: Short Sword
+- hammer: Warhammer
+- sword : Sword
+- axe   : Axe
+- staff : Quarterstaff
+- bsword: Broadsword
+- else  : Unknown weapon {val}
+}
+
+=== function RollWeapon
+{ RANDOM(0, 9):
+- 0: ~ return dagger
+- 1: ~ return spear
+- 2: ~ return mace
+- 3: ~ return ssword
+- 4: ~ return hammer
+- 6: ~ return axe
+- 8: ~ return staff
+- 9: ~ return bsword
+- else: ~ return sword
+}
+
+== function W2I(val)
+{ val:
+- dagger: # IMAGE: img/dagger.png
+- spear : # IMAGE: img/spear.png
+- mace  : # IMAGE: img/mace.png
+- ssword: # IMAGE: img/ssword.png
+- hammer: # IMAGE: img/warhammr.png
+- sword : # IMAGE: img/sword.png
+- axe   : # IMAGE: img/axe.png
+- staff : # IMAGE: img/qstaff.png
+- bsword: # IMAGE: img/bsword.png
+- else  : Unknown weapon
 }
