@@ -2,9 +2,8 @@
 #CLEAR
 <h1>Dedication</h1>
 <strong><em>To Mel and Yin</em></strong>
-* [The Story So Far …] -> story_so_far
-
-== story_so_far ==
+* [The Story So Far …]
+-
 #CLEAR
 <h1>The Story So Far …</h1>
 In the northern land of Sommerlund, it has been the custom for many centuries to send the children of the Warrior Lords to the monastery of Kai. There they are taught the skills and disciplines of their noble fathers.
