@@ -302,11 +302,11 @@ endurance {
 
 item {
     font-weight: bold;
-    color: darkolivegreen;
+    color: darkslategray;
 }
 
 .dark item {
-    color: olive;
+    color: slategray;
 }
 
 

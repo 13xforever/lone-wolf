@@ -1,6 +1,6 @@
 == game_rules ==
 LIST DISCIPLINES = camo, hunt, sixs, track, heal, weap, mshld, mblst, akin, mom
-LIST WEAPONS = (dagger), (spear), (mace), (ssword), (hammer), (sword), (axe), (staff), (bsword)
+LIST WEAPONS = hands, (dagger), (spear), (mace), (ssword), (hammer), (sword), (axe), (staff), (bsword)
 LIST BACKPACK_ITEMS = hp
 LIST SPECIAL_ITEMS = map, helmet, chainmail, vordak_gem
 
@@ -154,7 +154,7 @@ Hanging from your waist is a{GP==0:n empty} leather pouch containing {GP>0:{GP}|
 
 -
 ~ SPECIAL_ITEMS = (map)
-You discover amongst the smoking ruins of the monastery, a {PI(map)} showing the capital city of Holmgard and the land of Durenor, far to the east. You place the {PIS("Map")} inside your tunic for safety.
+You discover amongst the smoking ruins of the monastery, a {PI(map)} showing the capital city of Holmgard and the land of Durenor, far to the east. You place the Map inside your tunic for safety.
 
 * [{RollSyn()}]
 - You also find <>
@@ -167,6 +167,7 @@ You discover amongst the smoking ruins of the monastery, a {PI(map)} showing the
     {PI(sword)} (Weapons){GetProfDesc(sword)}.
     # IMAGE : img/sword.png
 - 2: ~ SPECIAL_ITEMS += helmet
+    ~ MAX_EP += 2
     ~ ENDURANCE += 2
     {PI(helmet)} (Special Items). This adds {PE("2 ENDURANCE")} points to your total.
     # IMAGE : img/helmet.png
@@ -174,6 +175,7 @@ You discover amongst the smoking ruins of the monastery, a {PI(map)} showing the
     {PIS("Two Meals")} (Meals).
     # IMAGE : img/food.png
 - 4: ~ SPECIAL_ITEMS += chainmail
+    ~ MAX_EP += 4
     ~ ENDURANCE += 4
     {PI(chainmail)} (Special Items). This adds {PE("4 ENDURANCE")} points to your total.
     # IMAGE : img/mail.png

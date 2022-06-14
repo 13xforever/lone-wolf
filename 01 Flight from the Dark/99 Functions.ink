@@ -1,3 +1,15 @@
+=== function ListWithMapAndCommas(list, -> f, if_empty)
+{LIST_COUNT(list):
+- 2:
+    	{f(LIST_MIN(list))} and {ListWithMapAndCommas(list - LIST_MIN(list), f, if_empty)}
+- 1:
+    	{f(LIST_MIN(list))}
+- 0:
+		{if_empty}
+- else:
+  		{f(LIST_MIN(list))}, {ListWithMapAndCommas(list - LIST_MIN(list), f, if_empty)}
+}
+
 === function ListWithCommas(list, if_empty)
 {LIST_COUNT(list):
 - 2:
@@ -12,6 +24,13 @@
 
 === function IsAre(list)
 {LIST_COUNT(list) == 1:is|are}
+
+=== function Clamp(v, min, max)
+{
+- v < min: ~ return min
+- v > max: ~ return max
+- else: ~ return v
+}
 
 === function NumToWords(x) ===
 {
@@ -62,6 +81,8 @@
             }
         }
 }
+=== function N2W(x)
+{NumToWords(x)}
 
 === function PHTML(el, val)
 <{el}>{val}</{el}>
@@ -171,29 +192,41 @@
 == function GetProfDesc(val)
 {PROFFICIENCY ? val:, which you’re {~profficient|intimately familiar|well accustomed|very handy} with}
 
-== function GetTotalCombatSkill(mblast_resistant, active_weapon)
-~ temp result = COMBAT_SKILL
-
-{ GetWeaponCount():
-- 0: ~ result -= 4
-- else:
-    { PROFFICIENCY ? active_weapon:
-        ~ result += LIST_COUNT(PROFFICIENCY ) * 2
-    }
-}
-{ (DISCIPLINES ? mblst) and (not mblast_resistant):
-    ~ result += 2
-}
-~ return result
-
 == function GetTotalBackpack()
 ~ return LIST_COUNT(BACKPACK_ITEMS) + MEALS
 
 == function GetWeaponCount()
 ~ return LIST_COUNT(HANDS ^ WEAPONS)
 
+== function GetWeaponNameWithBonusDesc(w)
+{W2N(w)}{PROFFICIENCY ? w: ({PCS("+2 COMBAT SKILL")})}
+
 == function HH()
 {ENDURANCE < MAX_EP: ({PE("+1 ENDURANCE")})}
+
+== function RightNowSyn(val)
+{~Right now|At {~the|this} {~moment|time}|At present|Presently} you {~have|carry} {val==0:none|{NumToWords(val)}}
+
+== function RollSyn()
+{~{~Roll|Drop|Flick|Jab|Tap|Twirl} the pencil|{~Consult|Peruse|Point at|Tap} the Random Number Table} {~|again|once {~again|more}|one more time}
+
+== function PrintActionChart()
+<h2>Action Chart</h2>
+<hr/>
+<strong>Combat Skill</strong>: {PCS(COMBAT_SKILL)}, <strong>Endurance Points</strong>: {PE(ENDURANCE)}/{PE(MAX_EP)}
+
+<strong>Kai Disciplines</strong>: {ListWithMapAndCommas(DISCIPLINES, -> D2N, "")}
+<strong>Rank</strong>: {KL2N(KAI_LEVEL)}
+
+<strong>Weapons</strong>: {ListWithMapAndCommas(HANDS, -> W2N, "empty hands")}
+<strong>Profficiency</strong>: {ListWithMapAndCommas(PROFFICIENCY,-> W2N, "none")}
+
+<strong>Belt Pouch</strong>: {GP} Gold Crown{GP!=1:s|}, <strong>Meals</strong>: {MEALS}
+<strong>Backpack Items</strong>: {ListWithMapAndCommas(BACKPACK_ITEMS, -> I2N, "none")}
+<strong>Special Items</strong>: {ListWithMapAndCommas(SPECIAL_ITEMS, -> I2N, "none")}
+<hr/>
+
+
 
 == Heal(-> next)
 { ENDURANCE < MAX_EP:
@@ -202,9 +235,33 @@ You {~heal|recover|restore|mend|regenerate|get} {PE(1)} {PE("ENDURANCE")} point 
 }
 -> next
 
+== GetWeapon(w, -> ret)
+~ temp ow = axe
+~ temp wc = GetWeaponCount()
+You have {N2W(wc)} weapon{wc>1:s}: {ListWithMapAndCommas(HANDS, -> W2N, "nothing")}.
+* {(wc < MAX_WEAPONS) and (HANDS !? w)} [{~Take|Pick up|Grab|Snatch|Get} the {W2N(w)}]
+    ~ HANDS += w
+    You {~take{~| hold of}|pick up|grab|seize|acquire|obtain|snatch|gain{~| posession of}|get} the {PI(w)}.
+    -> ret
+* {(wc == MAX_WEAPONS) and (HANDS !? w)} [{~Swap|Exchange|Switch|Trade|Change|Replace} {W2N(LIST_MIN(HANDS))} for {W2N(w)}]
+    ~ ow = LIST_MIN(HANDS)
+    ~ HANDS = HANDS - ow + w
+    You {~swap|exchange|switch|trade|change|replace} {W2N(ow)} in your hand for {W2N(w)}.
+    -> ret
+* {(wc == MAX_WEAPONS) and (HANDS !? w)} [{~Swap|Exchange|Switch|Trade|Change|Replace} {W2N(LIST_MAX(HANDS))} for {W2N(w)}]
+    ~ ow = LIST_MAX(HANDS)
+    ~ HANDS = HANDS - ow + w
+    You {~swap|exchange|switch|trade|change|replace} {W2N(ow)} in your hand for {W2N(w)}.
+    -> ret
+-> ret
 
-== function RightNowSyn(val)
-{~Right now|At {~the|this} {~moment|time}|At present|Presently} you {~have|carry} {val==0:none|{NumToWords(val)}}
+== GetBackpackItem(i, -> ret)
+~ temp w = GetTotalBackpack()
+* {(w < MAX_BACKPACK) and (BACKPACK_ITEMS !? i)} [{~Take|Pick up|Grab|Snatch|Get} the {I2N(i)}]
+    ~ BACKPACK_ITEMS += i
+    You {~take{~| hold of}|pick up|grab|seize|acquire|obtain|snatch|gain{~| posession of}|get} the {PI(i)}.
+    -> ret
 
-== function RollSyn()
-{~{~Roll|Drop|Flick|Jab|Tap|Twirl} the pencil|{~Consult|Peruse|Point at|Tap} the Random Number Table} {~|again|once {~again|more}|one more time}
+TODO: remaining checks
+
+-> ret

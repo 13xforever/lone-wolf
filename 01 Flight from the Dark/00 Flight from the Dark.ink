@@ -1,4 +1,5 @@
 # author: Joe Dever and Gary Chalk
+
 INCLUDE 01 Preface.ink
 INCLUDE 02 The Story So Far.ink
 INCLUDE 03 The Game Rules.ink
@@ -6,7 +7,9 @@ INCLUDE 04 Kai Wisdom.ink
 INCLUDE 05 Sections.ink
 INCLUDE 06 Endings.ink
 INCLUDE 07 Map of the Lastlands.ink
+INCLUDE 98 Combat.ink
 INCLUDE 99 Functions.ink
+
 INCLUDE Sections/1.ink
 INCLUDE Sections/2.ink
 INCLUDE Sections/3.ink
@@ -357,5 +360,9 @@ INCLUDE Sections/347.ink
 INCLUDE Sections/348.ink
 INCLUDE Sections/349.ink
 INCLUDE Sections/350.ink
+INCLUDE Test/Weapon.ink
 
--> preface
+
+
+//-> preface
+-> game_rules
