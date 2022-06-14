@@ -73,10 +73,12 @@
 {PHTML("endurance", val)}
 
 === function PD(val)
-{PHTML("discipline", D2N(val))}
+{PHTML("discipline", "{D2N(val)}")}
 
+=== function PIS(val)
+{PHTML("item", val)}
 === function PI(val)
-{PHTML("item", I2N(val))}
+{PIS("{I2N(val)}")}
 
 
 === function D2N(val)
@@ -109,9 +111,19 @@
 }
 
 === function I2N(val)
-{ val:
-
-- else : FIXME {val}
+{ WEAPONS ? val:
+    {W2N(val)}
+- else:
+    { val:
+    // backpack items
+    - hp: Healing Potion
+    // special items
+    - map:Map of Sommerlund
+    - helmet: Helmet
+    - chainmail: Chainmail Waistcoat
+    - vordak_gem: Vordak Gem
+    - else : Unknown item {val}
+    }
 }
 
 === function RollWeapon()
@@ -179,6 +191,9 @@
 
 == function GetWeaponCount()
 ~ return LIST_COUNT(HANDS ^ WEAPONS)
+
+== function HH()
+{ENDURANCE < MAX_EP: ({PE("+1 ENDURANCE")})}
 
 == Heal(-> next)
 { ENDURANCE < MAX_EP:

@@ -5,6 +5,6 @@ Fighting back tears, you bid farewell to your dead kinsmen. Silently, you promis
 
 At the foot of the hill, the path splits into two directions, both leading into a large wood.
 
-* {DISCIPLINES ? sixs} You use your Kai Discipline of Sixth Sense[]. -> Heal(-> s141)
-* You take the right path into the wood[]. -> Heal(-> s85)
-* You follow the left track[]. -> Heal(-> s275)
++ {DISCIPLINES ? sixs} You use your Kai Discipline of Sixth Sense[]. -> s141
++ You take the right path into the wood[{HH()}]. -> Heal(-> s85)
++ You follow the left track[{HH()}]. -> Heal(-> s275)

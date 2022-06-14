@@ -2,7 +2,7 @@
 LIST DISCIPLINES = camo, hunt, sixs, track, heal, weap, mshld, mblst, akin, mom
 LIST WEAPONS = (dagger), (spear), (mace), (ssword), (hammer), (sword), (axe), (staff), (bsword)
 LIST BACKPACK_ITEMS = hp
-LIST SPECIAL_ITEMS = map, helmet, chainmail
+LIST SPECIAL_ITEMS = map, helmet, chainmail, vordak_gem
 
 VAR COMBAT_SKILL = 0
 VAR MAX_EP = 0
@@ -11,7 +11,7 @@ VAR PROFFICIENCY = ()
 VAR HANDS = ()
 VAR MEALS = 0
 VAR GP = 0
-VAR KAI_LEVEL = 1
+VAR KAI_LEVEL = 5
 
 CONST MAX_WEAPONS = 2
 CONST MAX_BACKPACK = 8
@@ -20,7 +20,7 @@ CONST MAX_GP = 50
 # CLEAR
 <h1>The Game Rules</h1>
 <h2>Basics</h2>
-You keep a record of your adventure on the Action Chart.
+//You keep a record of your adventure on the Action Chart.
 
 During your training as a Kai Lord you have developed fighting prowess — {PCS("COMBAT SKILL")} and physical stamina — {PE("ENDURANCE")}. Before you set off on your adventure you need to measure how effective your training has been.
 
@@ -84,7 +84,7 @@ Over the centuries, the Kai monks have mastered the skills of the warrior. These
 
 + {DISCIPLINES !? weap} [Weaponskill]
     <h3>Weaponskill</h3>
-    Upon entering the Kai Monastery, each initiate is taught to master one type of weapon. When you enter combat carrying this weapon, you add {PCS("2")} points to your {PCS("COMBAT SKILL")}.
+    Upon entering the Kai Monastery, each initiate is taught to master one type of weapon. When you enter combat carrying this weapon, you add {PCS(2)} points to your {PCS("COMBAT SKILL")}.
     
     The fact that you are skilled with a weapon does not mean you set out on the adventure carrying that particular weapon. However, you will have opportunities to acquire weapons in the course of your adventures. (This will be explained fully in the Equipment section.)
     
@@ -146,7 +146,7 @@ You are dressed in the green tunic and cloak of a Kai initiate. You have little 
 
 ~ HANDS = (axe)
 ~ MEALS = 1
-All you possess is an Axe and a Backpack containing 1 Meal.
+All you possess is an {PI(axe)} and a Backpack containing {PIS("1 Meal")}.
 * [{RollSyn()}]
 -
 ~ GP = RANDOM(0, 9)
@@ -154,42 +154,42 @@ Hanging from your waist is a{GP==0:n empty} leather pouch containing {GP>0:{GP}|
 
 -
 ~ SPECIAL_ITEMS = (map)
-You discover amongst the smoking ruins of the monastery, a Map of Sommerlund showing the capital city of Holmgard and the land of Durenor, far to the east. You place the Map inside your tunic for safety.
+You discover amongst the smoking ruins of the monastery, a {PI(map)} showing the capital city of Holmgard and the land of Durenor, far to the east. You place the {PIS("Map")} inside your tunic for safety.
 
 * [{RollSyn()}]
 - You also find <>
 
 { RANDOM(0, 9):
 - 0: ~ HANDS += bsword
-    Broadsword (Weapons){GetProfDesc(bsword)}.
+    {PI(bsword)} (Weapons){GetProfDesc(bsword)}.
     # IMAGE : img/bsword.png
 - 1: ~ HANDS += sword
-    Sword (Weapons){GetProfDesc(sword)}.
+    {PI(sword)} (Weapons){GetProfDesc(sword)}.
     # IMAGE : img/sword.png
 - 2: ~ SPECIAL_ITEMS += helmet
     ~ ENDURANCE += 2
-    Helmet (Special Items). This adds {PE("2 ENDURANCE")} points to your total.
+    {PI(helmet)} (Special Items). This adds {PE("2 ENDURANCE")} points to your total.
     # IMAGE : img/helmet.png
 - 3: ~ MEALS += 2
-    Two Meals (Meals).
+    {PIS("Two Meals")} (Meals).
     # IMAGE : img/food.png
 - 4: ~ SPECIAL_ITEMS += chainmail
     ~ ENDURANCE += 4
-    Chainmail Waistcoat (Special Items). This adds {PE("4 ENDURANCE")} points to your total.
+    {PI(chainmail)} (Special Items). This adds {PE("4 ENDURANCE")} points to your total.
     # IMAGE : img/mail.png
 - 5: ~ HANDS += mace
-    Mace (Weapons){GetProfDesc(mace)}.
+    {PI(mace)} (Weapons){GetProfDesc(mace)}.
     # IMAGE : img/mace.png
 - 6: ~ BACKPACK_ITEMS += hp
-    Healing Potion (Backpack Item). This can restore {PE("4 ENDURANCE")} points to your total, when swallowed after combat. You only have enough for one dose.
+    {PI(hp)} (Backpack Item). This can restore {PE("4 ENDURANCE")} points to your total, when swallowed after combat. You only have enough for one dose.
     # IMAGE : img/potion.png
 - 7: ~ HANDS += staff
-    Quarterstaff (Weapons){GetProfDesc(staff)}.
+    {PI(staff)} (Weapons){GetProfDesc(staff)}.
     # IMAGE : img/qstaff.png
 - 8: ~ HANDS += spear
-    Spear (Weapons){GetProfDesc(spear)}.
+    {PI(spear)} (Weapons){GetProfDesc(spear)}.
     # IMAGE : img/spear.png
-- 9: GP += 12
+- 9: ~ GP += 12
     12 Gold Crowns (Belt Pouch).
     # IMAGE : img/pouch.png
 }
@@ -215,10 +215,10 @@ Now that you have your equipment, the following list shows you how it is carried
 - (hmcyc) <h3>How Much Can You Carry?</h3>
 - (hmtc)
 * [Weapons] The maximum number of weapons that you may carry is {NumToWords(MAX_WEAPONS)}. {RightNowSyn(GetWeaponCount())}.
-* Backpack Items[] must be stored in your Backpack. Because space is limited, you may only keep a maximum of {NumToWords(MAX_BACKPACK)} articles, including Meals, in your Backpack at any one time. {RightNowSyn(GetTotalBackpack())}.
+* Backpack Items[] must be stored in your Backpack. Because space is limited, you may only keep a maximum of {NumToWords(MAX_BACKPACK)} articles, including {PIS("Meals")}, in your Backpack at any one time. {RightNowSyn(GetTotalBackpack())}.
 * Special Items[] are not carried in the Backpack. When you discover a Special Item, you will be told how to carry it.
 * Gold Crowns[] are always carried in the Belt Pouch. It will hold a maximum of {NumToWords(MAX_GP)} crowns. {RightNowSyn(GP)}.
-* Food[] is carried in your Backpack. Each Meal counts as one item. {RightNowSyn(MEALS)}.
+* Food[] is carried in your Backpack. Each {PIS("Meal")} counts as one item. {RightNowSyn(MEALS)}.
 + [{~{~I’ve seen|That’s} enough|Let’s continue}] -> hmtc_footnote
 - {hmtc < 5: -> hmtc}
 - (hmtc_footnote)
@@ -227,7 +227,7 @@ Any item that may be of use and can be picked up on your adventure and entered o
 
 - (htuye)<h3>How to Use Your Equipment</h3>
 - (htue)
-* Weapons[] aid you in combat. If you have the Kai Discipline of Weaponskill and the correct weapon, it adds {PCS("2")} points to your {PCS("COMBAT SKILL")}. If you enter a combat with no weapons, deduct {PCS("4")} points from your {PCS("COMBAT SKILL")} and fight with your bare hands. If you find a weapon during the adventure, you may pick it up and use it. (Remember you can only carry {NumToWords(MAX_WEAPONS)} Weapons at once.) You may only use one Weapon at a time in combat.
+* Weapons[] aid you in combat. If you have the Kai Discipline of Weaponskill and the correct weapon, it adds {PCS(2)} points to your {PCS("COMBAT SKILL")}. If you enter a combat with no weapons, deduct {PCS(4)} points from your {PCS("COMBAT SKILL")} and fight with your bare hands. If you find a weapon during the adventure, you may pick it up and use it. (Remember you can only carry {NumToWords(MAX_WEAPONS)} Weapons at once.) You may only use one Weapon at a time in combat.
 
 * [Backpack Items] During your travels you will discover various useful items which you may wish to keep. (Remember you can only carry {NumToWords(MAX_BACKPACK)} items in your Backpack at once.) You may exchange or discard them at any point when you are not involved in combat.
 
@@ -235,9 +235,9 @@ Any item that may be of use and can be picked up on your adventure and entered o
 
 * [Gold Crowns] The local currency is the Crown, which is a small gold coin. Gold Crowns can be used on your adventure to pay for transport, food, or even as a bribe! Many of the creatures that you will encounter possess Gold Crowns, or have them hidden in their lairs. Whenever you kill a creature, you may take any Gold Crowns that it has and put them in your Belt Pouch.
 
-* [Food] You will need to eat regularly during your adventure. {DISCIPLINES ? hunt:You have chosen the Kai Discipline of Hunting as one of your five skills, thus you will not need to tick off a Meal when instructed to eat.|If you do not have any food when you are instructed to eat a Meal, you will lose {PE("3 ENDURANCE")} points.}
+* [Food] You will need to eat regularly during your adventure. {DISCIPLINES ? hunt:You have chosen the Kai Discipline of Hunting as one of your five skills, thus you will not need to tick off a {PIS("Meal")} when instructed to eat.|If you do not have any food when you are instructed to eat a Meal, you will lose {PE("3 ENDURANCE")} points.}
 
-* Healing Potion[] can restore {PE("4 ENDURANCE")} points to your total when swallowed after combat. It cannot be used to increase {PE("ENDURANCE")} points immediately prior to a combat. There is only enough for one dose. If you discover any other potions during the adventure, you will be told then of their effect. All Healing Potions are Backpack Items.
+* [Healing Potion]{PI(hp)} can restore {PE("4 ENDURANCE")} points to your total when swallowed after combat. It cannot be used to increase {PE("ENDURANCE")} points immediately prior to a combat. There is only enough for one dose. If you discover any other potions during the adventure, you will be told then of their effect. All {PIS("Healing Potions")} are Backpack Items.
 
 + [{~{~I’ve seen|That’s} enough|Let’s continue}] -> optional_rules
 - {htuye < 6: -> htue}

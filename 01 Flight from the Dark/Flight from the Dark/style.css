@@ -288,22 +288,33 @@ combat_skill {
     color: cornflowerblue
 }
 
-endurance {
-    color: indianred;
-}
-
 .dark combat_skill {
     color: deepskyblue;
+}
+
+endurance {
+    color: indianred;
 }
 
 .dark endurance {
     color: coral;
 }
 
+item {
+    font-weight: bold;
+    color: darkolivegreen;
+}
+
+.dark item {
+    color: olive;
+}
+
+
 .dark img {
     -webkit-filter: invert(1);
     filter: invert(1);
 }
+
 .dark p.color_image+img {
     -webkit-filter: none;
     filter: none;
