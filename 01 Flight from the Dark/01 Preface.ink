@@ -28,16 +28,16 @@ In <em><strong>Flight from the Dark</strong></em>, you swear revenge. But first 
     
     Five years later, in 1982 at the Origins Game Fair, Joe won the Advanced Dungeons & Dragons World Championships in Baltimore, an event held before 16,000 people. Inspired and encouraged by his success at Origins, Joe decided to quit the music business and devote his time to writing and games design.
     
-    In 1983, after a brief spell at Games Workshop in London, he wrote <em>Flight from the Dark</em> — the first Lone Wolf interactive gamebook. His manuscript immediately attracted a frenzy of interest from three major London publishing companies, all of whom bid for world rights. Joe accepted an offer of publication from Hutchinson's (later to become Century Hutchinson Ltd; now Random House UK) and <em>Flight from the Dark</em> was first published in 1984.
+    In 1983, after a brief spell at Games Workshop in London, he wrote <em>Flight from the Dark</em> — the first Lone Wolf interactive gamebook. His manuscript immediately attracted a frenzy of interest from three major London publishing companies, all of whom bid for world rights. Joe accepted an offer of publication from Hutchinson’s (later to become Century Hutchinson Ltd; now Random House UK) and <em>Flight from the Dark</em> was first published in 1984.
     
-    This first book sold more than 100,000 copies within its first month of publication, and overseas rights were snapped up by twelve countries (including the United States, France, Germany, Japan, Italy, and Sweden). The success of Joe's first book laid the foundations for the future of the Lone Wolf series, which has sold millions of copies around the world.
+    This first book sold more than 100,000 copies within its first month of publication, and overseas rights were snapped up by twelve countries (including the United States, France, Germany, Japan, Italy, and Sweden). The success of Joe’s first book laid the foundations for the future of the Lone Wolf series, which has sold millions of copies around the world.
     
     The Lone Wolf series ended after 28 books and 14 years. Joe has continued to work in the games industry as script writer and games design consultant.
 
 * [About Gary Chalk]
     <strong>Gary Chalk</strong>, the illustrator of the early Lone Wolf series, was born in 1952, grew up in Hertfordshire, England. Being interested in history, he began playing war games at the age of fifteen. When he graduated from college with a Bachelor of Arts in design, Gary spent three years training in a studio before becoming a teacher in art and design.
     
-    Gary was working as a children's book illustrator when he became involved in adventure gaming, an interest which eventually led to the creation of several successful games. He is the inventor/illustrator of some of Britain's biggest-selling fantasy games including Cry Havoc, Starship Captain, and Battlecars (co-designed with Ian Livingstone). He is also known for his work on the very successful game, Talisman.
+    Gary was working as a children’s book illustrator when he became involved in adventure gaming, an interest which eventually led to the creation of several successful games. He is the inventor/illustrator of some of Britain’s biggest-selling fantasy games including Cry Havoc, Starship Captain, and Battlecars (co-designed with Ian Livingstone). He is also known for his work on the very successful game, Talisman.
     
     Gary was working at Games Workshop when Joe Dever asked him to illustrate some of his manuscript of <em>Flight from the Dark</em>. The two teamed up after that and they continued to work together until the eighth book in the series, <em>The Jungle of Horrors</em>.
     
@@ -102,7 +102,7 @@ In <em><strong>Flight from the Dark</strong></em>, you swear revenge. But first 
         Jonathan Blake
     <em>Special Thanks<em>
         # CLASS: indented
-        Pedro Almeida, Jan Charvát, Christian Cognigni, Tony Lenzo, Dewi Morgan, Laurence O'Toole, Timothy Pederick
+        Pedro Almeida, Jan Charvát, Christian Cognigni, Tony Lenzo, Dewi Morgan, Laurence O’Toole, Timothy Pederick
 * [Copyright]
     <h1>Copyright</h1>
     Internet Edition published by Project Aon. This edition is intended to reflect the complete text of the original version. Where we have made minor corrections, they will be noted in the Errata.

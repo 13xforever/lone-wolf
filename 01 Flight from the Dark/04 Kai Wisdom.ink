@@ -12,3 +12,4 @@ The honour and memory of the Kai Lords will go with you on your perilous journey
 Good luck!
 
 + [Map of the Lastlands] -> ShowMap(-> kai_wisdom)
+* [Start your adventure] -> Sections_Hub

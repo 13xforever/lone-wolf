@@ -5,11 +5,13 @@ LIST BACKPACK_ITEMS = hp
 LIST SPECIAL_ITEMS = map, helmet, chainmail
 
 VAR COMBAT_SKILL = 0
+VAR MAX_EP = 0
 VAR ENDURANCE = 0
 VAR PROFFICIENCY = ()
 VAR HANDS = ()
 VAR MEALS = 0
 VAR GP = 0
+VAR KAI_LEVEL = 1
 
 CONST MAX_WEAPONS = 2
 CONST MAX_BACKPACK = 8
@@ -27,7 +29,8 @@ During your training as a Kai Lord you have developed fighting prowess — {PCS
     The first number that you pick is {PCS(COMBAT_SKILL)}, and it represents your {PCS("COMBAT SKILL")}. When you fight, your {PCS("COMBAT SKILL")} will be pitted against that of your enemy. A high score in this section is therefore very desirable.
 
 - * [{RollSyn()}]
-    ~ ENDURANCE = RANDOM(0, 9) + 20
+    ~ MAX_EP = RANDOM(0, 9) + 20
+    ~ ENDURANCE = MAX_EP
     The second number that you pick is {PE(ENDURANCE)}, and it represents your powers of {PE("ENDURANCE")}.
     
     If you are wounded in combat you will lose {PE("ENDURANCE")} points. If at any time your {PE("ENDURANCE")} points fall to zero or below, you are dead and the adventure is over. Lost {PE("ENDURANCE")} points can be regained during the course of the adventure, but your number of {PE("ENDURANCE")} points can never go above the number with which you start your adventure.
@@ -44,10 +47,8 @@ During your training as a Kai Lord you have developed fighting prowess — {PCS
 Over the centuries, the Kai monks have mastered the skills of the warrior. These skills are known as the Kai Disciplines, and they are taught to all Kai Lords. You have learnt only five of the skills listed below. The choice of which five skills these are, is for you to make. As all of the Disciplines may be of use to you at some point on your perilous quest, pick your five with care. The correct use of a Discipline at the right time can save your life.
 
 -(choice_loop)
-{ LIST_COUNT(DISCIPLINES) == 5:
-    
-    
-    If you successfully complete the mission as set in Book 1 of <em>Lone Wolf</em>, you may add a further Kai Discipline of your choice to your Action Chart in Book 2. This additional skill, together with your five other skills and any Special Items that you have picked up in Book 1, may then be used in the next adventure of the <em>Lone Wolf</em> series which is called <em>Fire on the Water</em>.
+{ LIST_COUNT(DISCIPLINES):
+- 5: If you successfully complete the mission as set in Book 1 of <em>Lone Wolf</em>, you may add a further Kai Discipline of your choice to your Action Chart in Book 2. This additional skill, together with your five other skills and any Special Items that you have picked up in Book 1, may then be used in the next adventure of the <em>Lone Wolf</em> series which is called <em>Fire on the Water</em>.
     
     -> choose_equipment
 - else:
@@ -192,10 +193,15 @@ You discover amongst the smoking ruins of the monastery, a Map of Sommerlund sho
     12 Gold Crowns (Belt Pouch).
     # IMAGE : img/pouch.png
 }
-* [Next]
 
-/*
-- <h3>How to Carry Equipment</h3
+- (optional_rules)
+* [How to carry equipment] -> htce
+* [How much can you carry?] -> hmcyc
+* [Rules for combat] -> rfc
+* [Levels of Kai training] -> lokt
+* [Skip to Kai Wisdom] -> kai_wisdom
+
+- (htce) <h3>How to Carry Equipment</h3
 Now that you have your equipment, the following list shows you how it is carried.
 <ul>\
 <li>Weapons — carried in the hand.</li>\
@@ -204,21 +210,23 @@ Now that you have your equipment, the following list shows you how it is carried
 <li>Backpack Items — carried in the Backpack.</li>\
 <li>Gold Crowns — carried in the Belt Pouch.</li>\
 </ul>
-*/
+-> optional_rules
 
-- <h3>How Much Can You Carry?</h3>
+- (hmcyc) <h3>How Much Can You Carry?</h3>
 - (hmtc)
 * [Weapons] The maximum number of weapons that you may carry is {NumToWords(MAX_WEAPONS)}. {RightNowSyn(GetWeaponCount())}.
 * Backpack Items[] must be stored in your Backpack. Because space is limited, you may only keep a maximum of {NumToWords(MAX_BACKPACK)} articles, including Meals, in your Backpack at any one time. {RightNowSyn(GetTotalBackpack())}.
 * Special Items[] are not carried in the Backpack. When you discover a Special Item, you will be told how to carry it.
 * Gold Crowns[] are always carried in the Belt Pouch. It will hold a maximum of {NumToWords(MAX_GP)} crowns. {RightNowSyn(GP)}.
 * Food[] is carried in your Backpack. Each Meal counts as one item. {RightNowSyn(MEALS)}.
++ [{~{~I’ve seen|That’s} enough|Let’s continue}] -> hmtc_footnote
 - {hmtc < 5: -> hmtc}
-
+- (hmtc_footnote)
 Any item that may be of use and can be picked up on your adventure and entered on your Action Chart is given capital letters in the text. Unless you are told it is a Special Item, carry it in your Backpack.
+-> optional_rules
 
-<h3>How to Use Your Equipment</h3>
-- (htuye)
+- (htuye)<h3>How to Use Your Equipment</h3>
+- (htue)
 * Weapons[] aid you in combat. If you have the Kai Discipline of Weaponskill and the correct weapon, it adds {PCS("2")} points to your {PCS("COMBAT SKILL")}. If you enter a combat with no weapons, deduct {PCS("4")} points from your {PCS("COMBAT SKILL")} and fight with your bare hands. If you find a weapon during the adventure, you may pick it up and use it. (Remember you can only carry {NumToWords(MAX_WEAPONS)} Weapons at once.) You may only use one Weapon at a time in combat.
 
 * [Backpack Items] During your travels you will discover various useful items which you may wish to keep. (Remember you can only carry {NumToWords(MAX_BACKPACK)} items in your Backpack at once.) You may exchange or discard them at any point when you are not involved in combat.
@@ -231,30 +239,74 @@ Any item that may be of use and can be picked up on your adventure and entered o
 
 * Healing Potion[] can restore {PE("4 ENDURANCE")} points to your total when swallowed after combat. It cannot be used to increase {PE("ENDURANCE")} points immediately prior to a combat. There is only enough for one dose. If you discover any other potions during the adventure, you will be told then of their effect. All Healing Potions are Backpack Items.
 
-- {htuye < 6: -> htuye}
++ [{~{~I’ve seen|That’s} enough|Let’s continue}] -> optional_rules
+- {htuye < 6: -> htue}
+-> optional_rules
+
+- (rfc)<h3>Rules for Combat</h3>
+There will be occasions on your adventure when you have to fight an enemy. The enemy’s {PCS("COMBAT SKILL")} and {PE("ENDURANCE")} points are given in the text. Lone Wolf’s aim in the combat is to kill the enemy by reducing his {PE("ENDURANCE")} points to zero while losing as few {PE("ENDURANCE")} points as possible himself.
+
+The sequence for combat is as follows.
+
+1. Add any extra points gained through your Kai Disciplines to your current {PCS("COMBAT SKILL")} total.
+
+2. Subtract the {PCS("COMBAT SKILL")} of your enemy from this total. The result is your Combat Ratio.
+
+    # CLASS : inset
+    Example
+
+    # CLASS : inset
+    Lone Wolf ({PCS(15)}) is ambushed by a Winged Devil ({PCS(20)}). He is not given the opportunity to evade combat, but must stand and fight as the creature swoops down on him. Lone Wolf has the Kai Discipline of Mindblast, so he adds {PCS(2)} points to his {PCS("COMBAT SKILL")}, giving a total of {PCS(17)}.
+
+    # CLASS : inset
+    He subtracts the Winged Devil’s {PCS("COMBAT SKILL")} from his own, giving a Combat Ratio of −3 (17 − 20 = −3).
+
+3. When you have your Combat Ratio, pick a number from the Random Number Table.
+
+4. Turn to the Combat Results Table. Along the top of the chart are shown the Combat Ratio numbers. Find the number that is the same as your Combat Ratio and cross-reference it with the random number that you have picked (the random numbers appear on the side of the chart). You now have the number of {PE("ENDURANCE")} points lost by both Lone Wolf and his enemy in this round of combat. (E represents points lost by the enemy; LW represents points lost by Lone Wolf.)
+
+    
+    # CLASS : inset
+    Example
+
+    # CLASS : inset
+    The Combat Ratio between Lone Wolf and Winged Devil has been established as −3. If the number taken from the Random Number Table is a 6, then the result of the first round of combat is:
+
+    # CLASS : inset
+    Lone Wolf loses {PE("3 ENDURANCE")} points<br>\
+    Winged Devil loses {PE("6 ENDURANCE")} points
 
 
+5. On the Action Chart, mark the changes in {PE("ENDURANCE")} points to the participants in the combat.
 
+6. Unless otherwise instructed, or unless you have an option to evade, the next round of combat now starts.
 
+7. Repeat the sequence from Stage 3.
 
+This process of combat continues until the {PE("ENDURANCE")} points of either the enemy or Lone Wolf are reduced to zero or below, at which point that combatant is declared dead. If Lone Wolf is dead, the adventure is over. If the enemy is dead, Lone Wolf proceeds but with his {PE("ENDURANCE")} points possibly reduced.
 
+* [Evasion of Combat]
+-
+<h3>Evasion of Combat</h3>
+During your adventure you may be given the chance to evade combat. If you have already engaged in a round of combat and decide to evade, calculate the combat for that round in the usual manner. All points lost by the enemy as a result of that round are ignored, and you make your escape. Only Lone Wolf may lose {PE("ENDURANCE")} points during that round, but then that is the risk of running away! You may only evade if the text of the particular section allows you to do so.
+-> optional_rules
 
+- (lokt)<h3>Levels of Kai Training</h3>
+The following table is a guide to the ranks and titles that are bestowed upon Kai Lords at each stage of their training. As you successfully complete each adventure in the <em>Lone Wolf</em> series, you will gain an additional Kai Discipline and gradually progress towards mastery of the ten basic Kai Disciplines.
 
+<ol>\
+<li>Novice</li>\
+<li>Intuite</li>\
+<li>Doan</li>\
+<li>Acolyte</li>\
+<li>Initiate — You begin the <em>Lone Wolf</em> adventures with this level of Kai training</li>\
+<li>Aspirant</li>\
+<li>Guardian</li>\
+<li>Warmarn or Journeyman</li>\
+<li>Savant</li>\
+<li>Master</li>\
+</ol>
+Beyond the ten basic skills of the Kai Master await the secrets of the higher Kai Disciplines or <strong>Magnakai</strong>. By acquiring the wisdom of the Magnakai, a Kai Lord can progress towards the ultimate achievement and become a Kai Grand Master.
 
+-> optional_rules
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-* [Kai Wisdom] -> kai_wisdom

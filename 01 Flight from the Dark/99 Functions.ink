@@ -141,8 +141,23 @@
 - else  : Unknown weapon
 }
 
+== function KL2N(val)
+{ val:
+- 1: Novice
+- 2: Intuite
+- 3: Doan
+- 4: Acolyte
+- 5: Initiate
+- 6: Aspirant
+- 7: Guardian
+- 8: Warmarn or Journeyman
+- 9: Savant
+- 10: Master
+- else: Unknown Magnakai level {val}
+}
+
 == function GetProfDesc(val)
-{PROFFICIENCY ? val:, which you're {~profficient|intimately familiar|well accustomed|very handy} with}
+{PROFFICIENCY ? val:, which you’re {~profficient|intimately familiar|well accustomed|very handy} with}
 
 == function GetTotalCombatSkill(mblast_resistant, active_weapon)
 ~ temp result = COMBAT_SKILL
@@ -164,6 +179,14 @@
 
 == function GetWeaponCount()
 ~ return LIST_COUNT(HANDS ^ WEAPONS)
+
+== Heal(-> next)
+{ ENDURANCE < MAX_EP:
+~ ENDURANCE++
+You {~heal|recover|restore|mend|regenerate|get} {PE(1)} {PE("ENDURANCE")} point up to {PE(ENDURANCE)}.
+}
+-> next
+
 
 == function RightNowSyn(val)
 {~Right now|At {~the|this} {~moment|time}|At present|Presently} you {~have|carry} {val==0:none|{NumToWords(val)}}
